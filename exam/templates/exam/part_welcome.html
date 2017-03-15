@@ -1,0 +1,28 @@
+<!-- Aquí se definen las opciones para los módulos 1 a 3 del test inicial -->
+{% extends 'exam/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if part.print_title %}
+    <h1 class="header center black-text">{{ part.title }}</h1>
+{% endif %}
+
+{% if part.dictate_title %}
+{% endif %}
+{% if part.print_introduction %}
+    <p class="center">{{ part.introduction }}</p>
+{% endif %}
+
+<div class="offset-m4 input-field col s4 center">
+    <form method="post" action="{% url 'exam:load_element' %}">
+        {% csrf_token %}
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+            Start this part
+        </button>
+    </form>
+</div>
+
+
+
+{% endblock %}

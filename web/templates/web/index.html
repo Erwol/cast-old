@@ -1,0 +1,40 @@
+{% extends 'web/base.html' %}
+{% block content %}
+
+<h1 class="header center black-text">Enter your exam key</h1>
+<div class="row">
+
+    <form class="col s12" method="post" action="{% url 'exam:validate_key' %}" autocomplete="off">
+    {% csrf_token %}
+        <div class="row">
+            <div class="offset-m4 input-field col s4 center">
+                <i class="material-icons prefix">vpn_key</i>
+                <input required="true" name="call_pass" id="pass" type="password" class="validate" placeholder="Insert your exam key">
+                <button class="btn waves-effect waves-light" type="submit" name="action">BEGIN EXAM
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+        {% if error_message %}
+        <div class="row">
+            <div class="offset-m4 col s4">
+                <div class="card red accent-4">
+                    <div class="card-content white-text">
+                    <span class="card-title">{{ error_message }}</span>
+                    <p>{{ error_description }}</p>
+                    </div>
+                    <!--
+                    <div class="card-action">
+                    <a href="#">Help</a>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+        {% endif %}
+</div>
+
+{% endblock %}

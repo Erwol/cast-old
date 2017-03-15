@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block page_title %}{% endblock %}</title>
+
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Materialize.css -->
+    <link rel="stylesheet" href="{% static 'css/materialize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/asct.css' %}"/>
+
+</head>
+<body>
+
+<div class="navbar-fixed">
+    <nav>
+    <div class=" green lighten-1 nav-wrapper">
+        <a href="#!" class="brand-logo">ASCT</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'web:index' %}">Home</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        </div>
+    </nav>
+</div>
+
+<main>
+{% block content %}
+{% endblock %}
+</main>
+<footer class=" green lighten-1 page-footer">
+<div class="container">
+    <div class="row">
+    <div class="col l6 s12">
+    <h5 class="white-text">ASCT DETAILS</h5>
+    <p class="grey-text text-lighten-4">lor-text.</p>
+    </div>
+    <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Sponsors</h5>
+        <ul>
+        <li><a class="grey-text text-lighten-3" href="http://www.uca.es">UCA</a></li>
+        </ul>
+        </div>
+    </div>
+</div>
+<div class="footer-copyright">
+<div class="container">
+© {% now "Y" %} ASCT
+<a class="grey-text text-lighten-4 right" href="#!">License</a>
+</div>
+</div>
+</footer>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
+</body>
+</html>

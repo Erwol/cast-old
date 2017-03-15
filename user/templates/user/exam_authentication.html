@@ -1,0 +1,66 @@
+{% extends 'exam/base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <!--
+    TODO Hacer que comiencen a sonar las instrucciones al llegar aquí
+    http://materializecss.com/scrollfire.html
+    -->
+    <h2 class="header">Sign into the exam</h2>
+    <!--
+    TODO Documento de la LOPD
+    -->
+    <p>I just need one more thing before we start: your personal details.</p>
+
+
+    <!-- Login -->
+    <div class="s6">
+        <p>If you already have an account in the ASCT system, just login.</p>
+
+        <form class="col l6 s12" action="{% url 'user:exam_sign_in' %}" method="post" autocomplete="off">
+            <!-- Errores en formularios -->
+        {% if login_form.errors %}
+            {% for field in login_form %}
+                {% for error in field.errors %}
+
+                    <strong style="color: red;">{{ error|escape }}</strong><br>
+                {% endfor %}
+            {% endfor %}
+            <!--
+            {% for error in login_form.non_field_errors %}
+                <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}-->
+        {% endif %}
+            {% csrf_token %}
+            {{ login_form }}
+            <button type="submit" value="register" class="waves-effect waves-light btn-large btn-block">Go to the exam!</button>
+        </form>
+
+    </div>
+
+    <!-- Registro -->
+    <div class="s6" style="border-left: 10px">
+        <p>Otherwise, please enter your details and signup.</p>
+
+        <form class="col s12 l6" action="{% url 'user:exam_sign_up' %}" method="post" autocomplete="off">
+            {% if signup_form.errors %}
+            {% for field in signup_form %}
+                {% for error in field.errors %}
+
+                    <strong style="color: red;">{{ error|escape }}</strong><br>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+            {% csrf_token %}
+            {{ signup_form }}
+            <button type="submit" value="register" class="waves-effect waves-light btn-large btn-block">Go to the exam!</button>
+        </form>
+
+
+    </div>
+</div>
+
+{% endblock %}

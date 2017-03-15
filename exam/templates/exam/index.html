@@ -1,0 +1,56 @@
+{% extends 'exam/base.html' %}
+{% block content %}
+<div class="section ">
+    <div class="row">
+        <h2 class="header">Welcome to the exam.</h2>
+        <p>{{ call.exam.welcome_message }}</p>
+        <p>{{ call.exam.welcome_help }}</p>
+        <p>Before we start I need you to give me two things.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="row">
+        <h2 class="header">Give me a face!</h2>
+        <p>In order to make you more confortable, you can choose my face and my accent.</p>
+
+        {% if avatars %}
+
+            <!--
+                TODO Añadir la eleccion de avatar con AJAX
+                https://godjango.com/18-basic-ajax/
+            -->
+            {% for avatar in avatars %}
+
+                <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ avatar.image.url }}">
+                        <span class="card-title" style="
+                            color: black;
+                            background-color: white;
+                            opacity: 0.9;
+                            border-top-right-radius: 10px;">
+                            {{ avatar.name }}
+                        </span>
+                    </div>
+                    <div class="card-content">
+                        <div class="chip">
+                            <img src="{{ avatar.voice.language.flag.url }}" alt="Country flag">
+                             {{ avatar.voice }}
+                        </div>
+                        <p>{{ avatar.description }}</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="{% url 'exam:authentication' avatar.id %}">Choose me!</a>
+                        <!-- http://stackoverflow.com/questions/11306669/django-template-escaping -->
+                        <a onclick="testAvatar('{{ avatar.voice.js_code|escapejs }}', '{{ avatar.description|escapejs }}')">Try my voice</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

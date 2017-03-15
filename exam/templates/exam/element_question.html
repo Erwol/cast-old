@@ -1,0 +1,47 @@
+{% extends 'exam/base.html' %}
+{% load staticfiles %}
+{% load render_as_template %}
+{% block content %}
+
+    <script>
+
+        function dictate(){
+            // Construimos una cadena con el texto que ya ha renderizado Django
+            statement = "'" + document.getElementById("statement").innerHTML + "'";
+            console.log("Procediendo a dictar: " + statement);
+            testAvatar('{{ avatar.voice.js_code }}', statement);
+        }
+
+    </script>
+
+    <button onclick="bla()">Mover boca</button>
+    {% if question.print_statement  %}
+        <p id="statement" class="center">{% render_as_template question.statement %}</p>
+    {% endif %}
+
+    {% if question.dictate_statement %}
+        <button onclick="dictate()">Dictar</button>
+        <script>
+            /*
+            chrome.tts.speak('Hello, world!');
+            // Construimos una cadena con el texto que ya ha renderizado Django
+            statement = "'" + document.getElementById("statement").innerHTML + "'";
+            console.log("Procediendo a dictar: " + statement);
+            setTimeout(function () {
+                artyom.say(statement);
+            }, 400);
+            */
+        </script>
+    {% endif %}
+
+
+
+<div class="offset-m4 input-field col s4 center">
+    <form method="post" action="{% url 'exam:load_element' %}">
+        {% csrf_token %}
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+            Continue
+        </button>
+    </form>
+</div>
+{% endblock %}

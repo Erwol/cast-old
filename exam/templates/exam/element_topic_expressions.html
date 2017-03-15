@@ -1,0 +1,22 @@
+{% extends 'exam/base.html' %}
+{% load staticfiles %}
+{% load render_as_template %}
+
+{% block content %}
+    <script>
+        // Al cargar la página se informa de la opción escogida
+        opcion = '{% render_as_template topic.name %}';
+        frase = 'Thank you. You have chosen ' + opcion;
+        console.log("Tópico escogido: " + frase);
+        dictate(frase);
+    </script>
+
+    <ul class="collection with-header">
+        <li class="collection-header"><h4>OK. Please have a look at the phrases and expressions on the screen for 30 seconds and then I’d like you to read them to me.</h4></li>
+
+    {% for expression in expressions %}
+        <li class="collection-item"><div>{{ expression.expression }}<a href="#!" class="secondary-content"><i class="material-icons">settings_voice</i></a></div></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

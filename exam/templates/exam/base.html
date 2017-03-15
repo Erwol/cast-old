@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ exam_title }}</title>
+     <!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <meta name="theme-color" content="#EE6E73">
+
+
+    <!-- Cargamos Artyom aquí arriba para que se pueda acceder a él desde los archivos que lo extienda
+
+    <script type="text/javascript" src="{% static 'exam/js/artyom.min.js' %}"></script>
+
+     -->
+
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+
+    <script type="text/javascript" src="{% static 'exam/js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'exam/js/audiodisplay.js' %}"></script>
+    <script type="text/javascript" src="{% static 'exam/js/recorder.js' %}"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
+    <!-- Carga de la app de la cara -->
+    <script src="{% static 'exam/js/appFace.js' %}"></script>
+
+    <script>
+
+
+
+        function gesticular(numberOfWords) {
+            bla();
+            console.log("Mueve boca");
+            numberOfWords--;
+            if (numberOfWords >= 0) {
+                setTimeout(function () {
+                    gesticular(numberOfWords);
+                }, 1000);
+            }
+        }
+
+
+    </script>
+
+    <style>
+
+        #viz {
+            height: 80%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+
+        .canvasContainer{
+            position: fixed;
+            left: 0px;
+            right: 0px;
+            bottom: 0;
+            width: 100%;
+
+            z-index: -1;
+            /*
+            bottom: 100px;
+            //background-color: Black;
+            The z-index property specifies the stack order of an element (which element should be placed in front of, or behind, the others).
+
+            */
+        }
+
+        .contextCanvas{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0px;
+            top: 0px;
+
+        }
+
+        .eqFace{
+            position: absolute;
+            z-index: -1;
+            padding-top: 180px;
+
+            /*
+
+            width: 100%;
+            height: 100%;
+            left: 0px;
+            top: 0px;
+
+            */
+
+        }
+
+        .faceAnalyser{
+            border-radius: 10px;
+
+
+        }
+
+    </style>
+</head>
+<body onload="iniciaCara()">
+
+<main>
+
+<div class="navbar-fixed" onclick="$('#modal1').openModal();">
+    <nav style="height: 0%">
+        <div class="row" style="padding: 0">
+            <div class="col s12" style="padding: 0">
+                <div class="progress" style="
+                    height: 28px;
+                    margin: 0px;
+                    border-radius: 0px;
+                ">
+                    <div class="determinate" style="width: {{ progress }}%"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+<div class="container">
+
+
+
+    <div class="col s12">
+        <!--
+        <canvas class="eqFace" id="analyser" width="1024" height="500"></canvas>
+        -->
+        {% if avatar %}
+        <div class="center">
+            <canvas class="eqFace" id="analyser"></canvas>
+            <object
+                class="faceAnalyser"
+                id='faceit'
+                data="{{ avatar.svg_url }}"
+                type="image/svg+xml"
+            ></object>
+        </div>
+        {% endif %}
+        {% block content %}
+
+
+
+
+        {% endblock %}
+    </div>
+</div>
+
+
+</main>
+
+
+<footer>
+
+    <!-- Controles de grabación provisionales -->
+    <div id="controls">
+        <button id="record" onclick="toggleRecording(this);">TEST RECORD</button><bR>
+    <a id="save" href="#"><button>DOWN</button></a>
+
+    </div>
+    <!-- Modal Structure. Muestra el progreso del examen y más información como el tiempo, lo que ya está hecho etc. -->
+    <div id="modal1" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Time info</h4>
+            <p>You've completed a {{ progress }}% of the exam in X minutes. You still have Y minutes.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
+</footer>
+</body>
+</html>
+
